@@ -1,0 +1,64 @@
+use dbCountry
+
+select region 
+from cia
+
+select concat( cast (avg(population)/1000000 as decimal(10,2)), ' Millions') as 'average population'
+from cia 
+where region='Europe'
+
+select region,count(name) as 'Number of countries'
+from cia 
+group by region
+
+select region,count(name) as 'Number of countries'
+from cia 
+where population>50000000
+group by region
+
+select region,concat(cast(sum(population)/1000000 as decimal(10,2)), ' Millions ')
+from cia 
+group by region
+order by sum(population)/1000000 desc 
+
+select concat( cast (sum(population)/1000000 as decimal(10,2)), ' M		') as 'Total Population',concat( cast (sum(gdp)/1000000 as decimal(10,2)), ' M		') as 'Total GDP'
+from cia 
+where region='Europe'
+
+select region, sum(population) as 'Total Population ',sum(gdp) as 'Total GDP'
+from cia
+group by region
+order by gdp desc
+
+select count(distinct(region)) as 'Number of regions'
+from cia
+
+select region, sum(population) as 'Total Population ',sum(gdp)as 'Total GDP',sum(area) as 'Total Area'
+from cia
+group by region
+
+
+select region,concat( cast (sum(population)/1000000 as decimal(10,2)), ' M		')  as 'Population'
+from cia
+group by region
+having sum(population)>400000000
+order by population asc
+
+select region,cast (avg(population)/1000000 as decimal(10,2)) as 'Average Population'
+from cia
+where region!='China'
+group by region
+having avg(population)>80000000
+order by population desc
+
+
+select max(region,avg(population)/1000000 as 'Population')
+from cia 
+group by region
+order by avg(population) desc
+
+
+
+
+
+

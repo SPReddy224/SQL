@@ -1,0 +1,125 @@
+--------------------------------------------------- 3rd assignment -------------------------------------------
+1)
+SELECT publishers.pub_name as publisher,employee.lname as last_name,employee.fname as first_name,jobs.job_desc as title
+FROM publishers
+INNER JOIN employee ON publishers.pub_id=employee.pub_id
+INNER JOIN jobs ON employee.job_id=jobs.job_id 
+ORDER BY publishers.pub_name
+
+2)
+
+ SELECT titles.title,stores.stor_name as Store,stores.city as city ,stores.state
+ FROM titles
+ INNER JOIN sales on titles.title_id=sales.title_id
+ INNER JOIN stores on sales.stor_id=stores.stor_id
+ ORDER BY title
+
+3)
+
+SELECT CONCAT(au_fname,' ',au_lname) as author,titles.title as title
+FROM authors
+INNER JOIN titleauthor on authors.au_id=titleauthor.au_id
+INNER JOIN titles on titleauthor.title_id=titles.title_id 
+ORDER BY author
+
+4) 
+
+SELECT authors.au_fname,authors.au_lname,COUNT(*) as number
+FROM authors
+INNER JOIN titleauthor ON authors.au_id=titleauthor.au_id
+INNER JOIN titles ON titleauthor.title_id=titles.title_id
+GROUP BY authors.au_fname,authors.au_lname
+
+
+5)
+
+SELECT titles.title,publishers.pub_name,concat(authors.au_lname,' ',left(authors.au_fname,1),'.')
+from authors
+inner join titleauthor on authors.au_id=titleauthor.au_id
+inner join titles on titleauthor.title_id=titles.title_id
+inner join publishers on titles.pub_id=publishers.pub_id
+order by title
+
+
+6)
+
+select stores.stor_name,stores.city,stores.state,titles.title,sales.qty
+from titles
+inner join sales on titles.title_id=sales.title_id
+inner join stores on sales.stor_id=stores.stor_id
+where stores.state='WA'
+order by sales.qty
+
+
+
+7)
+
+
+select publishers.pub_name,titles.title_id
+ from publishers
+ inner join titles on publishers.pub_id=titles.pub_id
+ where titles.advance >=1000
+
+
+8)
+
+select distinct publishers.pub_name,titles.type 
+from publishers
+inner join titles on publishers.pub_id=titles.pub_id
+where titles.type='business' OR  titles.type='psychology' 
+
+
+9)
+
+SELECT titles.title,authors.au_fname,authors.au_lname
+from titles
+inner join titleauthor on titles.title_id=titleauthor.title_id
+inner join authors on titleauthor.au_id=authors.au_id
+where concat(authors.au_fname,' ',authors.au_lname)='Albert Ringer'
+
+10)
+
+select publishers.pub_name,count(*)
+from publishers
+inner join employee on publishers.pub_id=employee.pub_id
+group by publishers.pub_name
+
+11)
+
+select distinct publishers.pub_name ,count(titles.title_id) as no_of_books ,min(price) as min_price, max(titles.price) as max_price,sum(price) as sum_price,avg(price) as avg_price from publishers
+inner join titles on publishers.pub_id=titles.pub_id
+group by publishers.pub_name
+
+12)
+
+select stores.stor_name,count(distinct(sales.title_id)) as no_of_different_books from stores
+inner join sales on stores.stor_id=sales.stor_id
+group by stores.stor_name
+
+13)
+
+select  titles.title,sum(sales.qty) as quantity_sold from titles
+inner join sales on titles.title_id=sales.title_id
+group by titles.title having sum(sales.qty) < 25
+
+14)
+
+select publishers.pub_name,max(titles.advance) from publishers
+inner join titles on publishers.pub_id=titles.pub_id
+group by publishers.pub_name
+
+15)
+
+select concat(authors.au_lname,' ',authors.au_fname) as author from authors where authors.contract=0 order by author
+
+16)
+
+select titles.title,sum(sales.qty) from titles
+inner join sales on titles.title_id=sales.title_id
+group by titles.title
+
+17)
+
+select stores.stor_name,sum(sales.qty) as number_of_books_sold from stores
+inner join sales on stores.stor_id=sales.stor_id
+group by stores.stor_name

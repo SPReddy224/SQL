@@ -1,0 +1,192 @@
+Question 1
+
+use dbCountry
+
+SELECT name,population FROM cia WHERE population=31281092
+
+Question 2
+
+use dbCountry
+
+SELECT name,population,area,CAST(population/area AS int )AS'population dencity'
+FROM cia Where area>=2000000
+
+
+Question 3
+
+use dbCountry
+
+SELECT name+' is in '+region AS 'Country/Region'
+FROM cia Where area<=2000 and gdp>=5000000000 
+
+Question 4
+
+use dbCountry
+
+SELECT name
+FROM cia Where name= 'Iran' or name='Sri Lanka'
+
+Question 5
+
+use dbCountry
+
+SELECT name
+FROM cia Where name LIKE 'D%'
+
+Question 6
+
+use dbCountry
+
+SELECT name,population
+FROM cia Where population>=200000000
+
+Question 7
+
+use dbCountry
+
+SELECT name,area
+FROM cia Where area>=2300000 order by area desc
+
+Question 8
+use dbCountry
+
+SELECT name,area
+FROM cia Where area>=2300000
+order by area desc
+
+Question 9
+
+use dbCountry
+
+SELECT name,cast((gdp/population) as decimal(10,2))AS'Capita'
+FROM cia Where population>=200000000
+order by capita desc
+
+Question 10
+
+use dbCountry
+
+SELECT name,str(Round(population/1000000,2),5,2)+'M' AS 'Population in millons'
+FROM cia Where region ='South America'
+order by population desc
+
+Question 11
+
+use dbCountry
+
+SELECT name,population
+FROM cia Where name IN('Japan', 'China', 'Iraq','Iran')
+order by population desc
+
+Question 12
+
+use dbCountry
+
+SELECT name
+FROM cia Where name LIKE'united%'
+order by population desc
+
+
+Question13
+
+use dbCountry
+
+SELECT name,population
+FROM cia Where name ='France'or name = 'Germany'
+order by population desc
+
+Question 14
+
+use dbCountry
+
+SELECT name
+FROM cia Where name LIKE '[S]%' and region ='Europe'
+order by population desc
+
+Question 15
+
+use pub
+
+SELECT au_lname as'Last name',au_fname as 'FIrst Name'
+from authors 
+where au_lname='Smith'
+
+Question 16
+
+use pub
+
+SELECT  distinct (state)
+from authors 
+Question 17
+
+use pub
+
+SELECT  au_lname,au_fname,city,state
+from authors 
+where state='CA' and city !='Oakland'or city= 'Salt Lake City'
+
+Question 18
+
+use pub
+
+SELECT    title,price
+from titles
+where price between 5 and 20
+
+Question 19
+use pub
+
+SELECT    title,price
+from titles
+where price is null
+
+Question 20
+
+use pub
+
+SELECT  au_lname,au_fname
+from authors 
+where au_lname LIKE '%ger'
+
+Question 21
+
+use pub
+
+SELECT  au_lname,au_fname
+from authors 
+where au_lname LIKE 'D%'
+
+Question 22
+
+use pub
+
+SELECT  au_lname,au_fname
+from authors 
+where  len(au_lname)=5 and au_lname LIKE '%mith'
+
+Question 23
+
+use pub
+
+SELECT  concat(au_lname,au_fname) AS 'Author Name',city
+from authors 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

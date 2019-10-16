@@ -1,0 +1,17 @@
+-- Management of grades in a school
+
+-- Question 1: Creation of the School database.
+
+-- Question 2: Inserting data.
+
+-- Question 3: Display the students who are missing grades.
+
+-- Question 4: In which subject does this student miss a grade?
+
+-- Question 5: The missing grade of Cedric Turcotte is 82 in P42. Add this grade to the database.
+
+-- Question 6: Give the overall average of each student.
+
+-- Question 7: Which students have a grade above the average grade of P42?
+
+-- Question 8: Display the grades of each student in each of the 4 courses and their average.

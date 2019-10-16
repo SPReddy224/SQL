@@ -1,0 +1,54 @@
+use pub
+
+IF EXISTS (SELECT * FROM sys.procedures WHERE NAME='CatMaxBooks2') 
+DROP PROC CatMaxBooks2 
+GO
+
+create procedure CatMaxBooks2(@pub_name varchar(20))as 
+
+begin
+
+      
+	 declare @nbRows int = 0
+
+	 select type, count(*) as 'Number of books'
+     from titles
+     group by type
+     having count(*) >= ALL(select count(*) from titles group by type) 
+
+
+	  select @nbRows = count(*) 
+	 from publishers
+	 where pub_name = @pub_name 
+
+	-- (select pub_name from publishers)
+	if @nbRows = 0 
+	begin
+	 print 'The publisher ' + @pub_name + ' does not exist in the database.'
+	 end
+
+	 else
+	 begin
+
+	 select t.type,p.pub_name,count(*) 
+      from titles t,publishers p
+      where p.pub_name=@pub_name
+      group by type,pub_name
+
+    having count(*)>= ALL(select count(*) from titles group by type)
+
+PRINT type+ 'is the category that contains the most books published by ' +@pub_name+ 
+type+ 'contains' +count(*)+ 'books published by the' +@pub_name
+
+ end
+	   
+end
+go
+
+
+EXEC CatMaxBooks2 'Microsoft'
+
+
+
+
+ 

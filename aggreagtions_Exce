@@ -1,0 +1,79 @@
+SELECT sum(cia.population) AS 'Population Of The World'
+FROM cia
+ 
+SELECT MAX(cia.population) AS 'Largest Population',(MAX(cia.population)*100)/sum(cia.population) AS percentage 
+FROM cia
+
+SELECT MIN(cia.population) AS 'Smallest Population' ,(MIN(cia.population)*100)/sum(cia.population) AS percentage
+FROM cia
+WHERE cia.population>50
+
+SELECT DISTINCT(cia.region) AS Region FROM 
+cia
+
+SELECT CONCAT(str((SUM(cia.population)/COUNT(*))/1000000,6,2),' Millions')  AS 'Average Population'
+FROM cia
+WHERE cia.region='Europe'
+
+
+SELECT cia.region as REgion,COUNT(cia.name) 
+FROM cia
+GROUP BY cia.region
+
+SELECT cia.region as REgion,COUNT(cia.name) 
+FROM cia
+WHERE cia.population>50000000
+GROUP BY cia.region
+ORDER BY COUNT(cia.name) DESC
+
+
+
+
+SELECT cia.region AS Region,str(SUM(cia.population)/1000000,6,2) AS Population
+FROM cia
+GROUP By cia.region
+ORDER BY (SUM(cia.population)/1000000) DESC
+
+
+SELECT SUM(cia.population/1000000) as 'Population Total',SUM(cia.gdp/1000000) as 'Total Gdp' 
+FROM cia
+WHERE cia.region='Europe'
+GROUP BY cia.region
+
+
+
+SELECT cia.region AS Region ,str(SUM(cia.population)/1000000,6,2) AS 'Total Population',str(sum(cia.gdp)/1000000,16,2) AS 'Total GDP'
+FROM cia
+GROUP BY cia.region
+ORDER BY sum(cia.gdp) DESC
+
+
+SELECT COUNT(DISTINCT(cia.region)) AS 'Number Of Regions'
+FROM cia
+
+SELECT cia.region AS Region,SUM(cia.population) AS Population,SUM(cia.area) AS 'Total Area',SUM(cia.gdp) AS GDP
+FROM cia
+GROUP BY cia.region
+ORDER BY SUM(cia.population) DESC
+
+
+SELECT cia.region AS Region , CONCAT(str(SUM(cia.population)/1000000,6,2),' M') AS Population
+FROM cia
+GROUP BY cia.region
+HAVING SUM(cia.population) > 400000000
+ORDER BY  SUM(cia.population)/1000000 DESC
+
+
+SELECT cia.region AS Region,SUM(cia.population)/COUNT(*) /1000000 AS 'Average Population'
+FROM cia
+where cia.name!='China'
+GROUP BY cia.region
+HAVING SUM(cia.population)/COUNT(*)> 80000000
+
+
+
+
+
+
+
+ 

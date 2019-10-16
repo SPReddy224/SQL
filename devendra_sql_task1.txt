@@ -1,0 +1,97 @@
+Assignment 1 :
+
+1)
+
+select cia.name,cia.population from cia where name='Canada'
+
+2)
+
+select cia.name,cia.population,cia.area,CAST(cia.population/cia.area as INT) as population_density from cia where area > 2000000
+
+3)
+
+select concat(cia.name,' is in ',cia.region) as country_regiorn from cia where cia.area < 2000 AND cia.gdp > 5000000000
+
+4)
+
+select cia.name from cia where cia.name in ('Sri Lanka', 'Ceylon', 'Persia', 'Iran')
+
+5) 
+
+select cia.name from cia where left(cia.name,1) = 'D'
+
+6)
+
+select cia.name , cia.area from cia where cia.area between 207600 AND 244820
+
+7)
+
+select cia.name, cia.population from cia where cia.population >= 200000000
+
+8)
+
+select cia.name,cia.area  from cia where  cia.area >= 2300000 order by cia.area DESC
+
+9)
+
+select cia.name,cia.gdp/cia.population as gdp_capita from cia where cia.population >= 200000000 order by gdp_capita DESC
+
+bonus :  select cia.name, 
+ CASE when cia.population > 0 then cia.gdp/cia.population end as percapita from cia
+
+10)
+
+select cia.name,concat(str(cia.population/1000000,6,2),' M') as millions from cia where cia.region = 'South America' order by millions DESC
+
+11)
+
+select cia.name,cia.population from cia where  cia.name in ('China','Japan','Iraq','Iran')
+
+12)
+
+select cia.name from cia where cia.name like '%United%' order by cia.region
+
+
+13)
+
+select cia.name,cia.population from cia where cia.name = 'France' OR cia.name ='Germany'
+
+14)
+
+select cia.name from cia where left(cia.name,1)='S' AND cia.region='Europe'
+
+15)
+
+select authors.au_lname as Last_Name , authors.au_fname as First_Name from authors  where authors.au_lname='Smith' order by authors.au_fname
+
+16)
+
+select distinct authors.state from authors
+
+17)
+
+select authors.au_lname,authors.au_fname,authors.city,authors.state from authors where authors.state='CA' AND authors.city != 'Oakland' OR authors.city = 'Salt Lake City'
+
+18)
+
+select titles.title, titles.price from titles where titles.price between 5 AND 20
+
+19)
+
+select titles.title,titles.price from titles where titles.price is NULL
+
+20)
+
+select authors.au_lname,authors.au_fname from authors where right(authors.au_lname,3)='ger'
+
+21)
+
+select authors.au_lname,authors.au_fname from authors where left(authors.au_lname,1)= 'D' AND left(authors.au_lname,1)= 'd' 
+
+22)
+
+select authors.au_lname,authors.au_fname from authors where len(authors.au_lname)= 5 AND right(authors.au_lname,4) = 'mith'
+
+23)
+
+select concat(authors.au_lname,' ',authors.au_fname) as Author_name,authors.state from authors

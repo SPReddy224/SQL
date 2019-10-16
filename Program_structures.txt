@@ -1,0 +1,107 @@
+use pub
+Declare @Psy_avg money
+Declare @Bui_avg money
+
+set @Psy_avg=(select avg(price) from titles where 
+                 type='psychology');
+set @Bui_avg=(select avg(price) from titles where 
+                 type='business')
+
+
+ 
+PRINT concat('value 1:' , @Psy_avg)
+PRINT concat('value 2:' , @Bui_avg)
+
+select pub_id ,type, avg(price)
+from titles 
+group by pub_id,type 
+having avg(price) between @Psy_avg and @Bui_avg
+
+
+Declare @max_price varchar(70)
+declare @min_price varchar(70)
+
+set @max_price=(select max(price) from titles)
+set @min_price=(select min(price) from titles)
+
+Print 'maximum_price: '  +@max_price
+Print 'manimum price: '  +@min_price
+
+select title,price
+from titles
+where @max_price=price or @min_price=price
+
+
+Declare @publ varchar(50)
+set @publ='Binnet & Hardley'
+
+Declare @nb varchar(60)
+set @nb=(select count(title_id)
+         from titles t join publishers p on p.pub_id=t.pub_id
+		 where pub_name=@publ)
+
+Declare @m varchar(50)
+set @m=(select avg(price)
+         from titles t join publishers p on p.pub_id=t.pub_id
+		 where pub_name=@publ)
+
+print 'Publoisher Name: '  +@publ
+print 'Number of books: '   +@nb
+print 'Average price: '    +@m
+
+select title
+from titles t join publishers p on p.pub_id=t.pub_id
+where pub_name=@publ and price<@m
+
+declare @book int
+set @book = @@rowCount
+
+print @book
+
+
+
+select title
+from titles t join publishers p on p.pub_id=t.pub_id
+where pub_name=@publ and price>@m
+
+
+Declare @a int
+set @a=20
+
+Declare @result varchar(30)
+set @result=
+
+   Case
+         when @a=10 then '10'
+		 when @a=20 then '20'
+		 else '100'
+  end
+print 'Result=' +@result
+
+Declare @rslt varchar(20)
+
+set @a=40
+set @rslt=
+    case 
+
+	    when @a<10 then 'value is less then 10'
+		when @a<20 then 'value is less then 20'
+		when @a>20 then 'value is greater then 20'
+	end
+print 'Result=' +@rslt
+
+Declare @sale_amt varchar(50)
+set @sale_amt= (select count(stor_id) from stores)
+
+set @sale_amt=
+      case
+	     when @sale_amt<1000 then 'store to close'
+		  when @sale_amt>1000 and @sale_amt < 1500 then 'It can work'
+		  when @sale_amt>1500 then 'Ok,thats good'
+	  end
+print @sale_amt
+
+use pub
+select ord_num,stor_id,qty from sales
+where qty between 0 and 10
+order by ord_num

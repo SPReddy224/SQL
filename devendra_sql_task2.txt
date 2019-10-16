@@ -1,0 +1,89 @@
+1) 
+
+select sum(cia.population) as world_population from cia
+
+2)
+
+select max(cia.population) as Largest_population,max(cia.population)/sum(cia.population)*100 as percentage from cia
+
+3)
+
+select min(cia.population) as Largest_population,min(cia.population)/sum(cia.population)*100 as percentage from cia where cia.population>50
+
+4)
+
+select distinct cia.region as Region from cia
+
+5)
+
+select concat((sum(cia.population)/count(cia.name))/1000000,' Millions') as Average_Population from cia  where cia.region = 'Europe'
+
+6)
+
+select cia.region as Region,count(cia.name) as Number_Of_Countries from cia group by cia.region
+
+7)
+
+select cia.region as Region,count(cia.name) as No_Of_Countries from cia where cia.population > 50000000
+group by cia.region
+
+8)
+
+select cia.region as Region,str(sum(cia.population)/1000000,10,2) as Population from cia group by cia.region order by Population DESC
+
+9)
+
+select concat(str(sum(cia.population)/1000000,10,2),' M') as Total_Population,concat(str(sum(cia.gdp)/1000000,10,0),' M') as Total_Gdp from cia where cia.region='Europe' 
+
+10)
+
+select cia.region as Region,str(sum(cia.population)/1000000,10,2) as Total_Population,sum(cia.gdp)/1000000 as Total_Gdp from cia group by cia.region order by Total_Gdp DESC
+
+11)
+
+select  count(distinct (cia.region)) as Number_Of_Regions from cia
+
+
+12)
+
+select cia.region as Region,sum(cia.population) as Population,sum(cia.area) as Total_Area, sum (cia.gdp) as GDP from cia
+group by cia.region order by Population DESC
+
+13)
+
+
+
+
+15)
+select cia.region,sum(cia.population)/count(cia.name)/1000000 as Avg_Population from cia 
+ group by cia.region order by Avg_Population DESC
+
+16)
+
+select cia.name,cia.population,cia.area from cia
+ union all
+ select str(sum(cia.population),10,2) as total_population,sum(cia.area) as total_area,sum(cia.population)/count(cia.name) from cia
+
+17)
+
+select cia.region,cia.name,cia.population,cia.area from cia 
+ union all
+ select cia.region,str(sum(cia.population),10,2),str(sum(cia.area),10,2),str(sum(cia.population)/count(cia.region),10,2) from cia group by cia.region
+
+18)
+
+select titles.type,sum(titles.price)/count(titles.ytd_sales) as avg_price from titles  group by titles.type
+
+19)
+
+select titles.title_id,titles.price,titles.advance from titles 
+
+union all
+select '',sum(titles.price)/count(titles.ytd_sales),sum(titles.advance) from titles
+
+20)
+
+
+
+select pub_id,sum(advance) as Sum_OF_Advance,sum(price)/count(ytd_sales) as Avg_Price from titles where pub_id > 0800  group by pub_id
+having sum(price)/count(pub_id) < 20

@@ -1,0 +1,250 @@
+USE Elections
+ 
+ DROP TABLE IF EXISTS dbo.Voters
+ DROP TABLE IF EXISTS dbo.Constituency
+ DROP TABLE IF EXISTS dbo.Results
+ DROP TABLE IF EXISTS dbo.Candidates
+ DROP TABLE IF EXISTS dbo.Party
+
+GO
+CREATE TABLE Party (
+    party_nb smallint NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    party_name varchar(15) NOT NULL,
+    nb_members smallint NOT NULL
+);
+GO
+CREATE TABLE Candidates(
+    candidate_nb smallint NOT NULL PRIMARY KEY,
+	round tinyint NOT NULL,
+	party_nb smallint NOT NULL FOREIGN KEY REFERENCES Party(party_nb) 
+	)
+
+GO
+CREATE TABLE Results(
+   round tinyint NOT NULL PRIMARY KEY,
+   candidate_nb smallint NOT NULL FOREIGN KEY REFERENCES Candidates(candidate_nb),
+   nb_elected float NOT NULL
+ );
+ GO
+ CREATE TABLE Constituency(
+ constituency_nb smallint NOT NULL IDENTITY(1,1) PRIMARY KEY,
+ constituency_name varchar(20) NOT NULL,
+ nb_registered smallint ,
+ total_candidates smallint  FOREIGN KEY REFERENCES Candidates(candidate_nb) 
+
+ );
+ GO
+ CREATE TABLE Voters(
+ voter_nb smallint NOT NULL IDENTITY(1,1) PRIMARY KEY,
+ voter_name varchar(20) NOT NULL,
+ voter_adr varchar(25) NOT NULL,
+ constituency_nb smallint NOT NULL FOREIGN KEY REFERENCES Constituency(constituency_nb)
+ );
+
+
+ 
+
+ INSERT INTO Party
+  VALUES ('Parti Liberal', 3000)
+INSERT INTO Party
+  VALUES ('Parti Quebecois', 3000)
+INSERT INTO Party
+  VALUES ('ADQ', 1000)
+INSERT INTO Party
+  VALUES ('Independant', 100)
+
+
+
+
+INSERT INTO Candidates
+  VALUES (1, 10, 1)
+INSERT INTO Candidates
+  VALUES (2, 20, 1)
+INSERT INTO Candidates
+  VALUES (3, 30, 1)
+INSERT INTO Candidates
+  VALUES (4, 10, 2)
+INSERT INTO Candidates
+  VALUES (5, 20, 2)
+INSERT INTO Candidates
+  VALUES (6, 30, 2)
+INSERT INTO Candidates
+  VALUES (10, 10, 1)
+INSERT INTO Candidates
+  VALUES (11, 20, 1)
+INSERT INTO Candidates
+  VALUES (12, 30, 1)
+INSERT INTO Candidates
+  VALUES (13, 10, 2)
+INSERT INTO Candidates
+  VALUES (14, 20, 2)
+INSERT INTO Candidates
+  VALUES (15, 30, 2)
+INSERT INTO Candidates
+  VALUES (16, 40, 2)
+INSERT INTO Candidates
+  VALUES (21, 10, 1)
+INSERT INTO Candidates
+  VALUES (22, 20, 1)
+INSERT INTO Candidates
+  VALUES (19, 30, 1)
+INSERT INTO Candidates
+  VALUES (18, 10, 2)
+INSERT INTO Candidates
+  VALUES (20, 20, 2)
+INSERT INTO Candidates
+  VALUES (23, 30, 2)
+INSERT INTO Candidates
+  VALUES (28, 10, 1)
+INSERT INTO Candidates
+  VALUES (33, 10, 2)
+INSERT INTO Candidates
+  VALUES (29, 30, 1)
+INSERT INTO Candidates
+  VALUES (32, 30, 2)
+INSERT INTO Candidates
+  VALUES (31, 20, 1)
+INSERT INTO Candidates
+  VALUES (30, 40, 1)
+
+
+
+
+INSERT INTO Constituency
+  VALUES ('Montreal', 3000, 4)
+INSERT INTO Constituency
+  VALUES ('Laval', 2500, 13)
+INSERT INTO Constituency
+  VALUES ('Brossard', 2000, 20)
+INSERT INTO Constituency
+  VALUES ('Matagami', 100, 30)
+INSERT INTO Constituency
+  VALUES ('sabloVille', 1, NULL)
+
+
+
+
+INSERT INTO Results
+  VALUES (1, 1, 500)
+INSERT INTO Results
+  VALUES (2, 1, 1000)
+INSERT INTO Results
+  VALUES (3, 1, 800)
+INSERT INTO Results
+  VALUES (4, 2, 1500)
+INSERT INTO Results
+  VALUES (5, 2, 1000)
+INSERT INTO Results
+  VALUES (6, 2, 1000)
+INSERT INTO Results
+  VALUES (10, 1, 500)
+INSERT INTO Results
+  VALUES (11, 1, 900)
+INSERT INTO Results
+  VALUES (12, 1, 1050)
+INSERT INTO Results
+  VALUES (13, 2, 2000)
+INSERT INTO Results
+  VALUES (14, 2, 987)
+INSERT INTO Results
+  VALUES (15, 2, 400)
+INSERT INTO Results
+  VALUES (16, 2, 200)
+INSERT INTO Results
+  VALUES (21, 1, 500)
+INSERT INTO Results
+  VALUES (22, 1, 900)
+INSERT INTO Results
+  VALUES (19, 1, 600)
+INSERT INTO Results
+  VALUES (18, 2, 95)
+INSERT INTO Results
+  VALUES (20, 2, 1087)
+INSERT INTO Results
+  VALUES (23, 2, 400)
+INSERT INTO Results
+  VALUES (28, 1, 10)
+INSERT INTO Results
+  VALUES (33, 2, 15)
+INSERT INTO Results
+  VALUES (29, 1, 5)
+INSERT INTO Results
+  VALUES (32, 2, 5)
+INSERT INTO Results
+  VALUES (31, 1, 9)
+INSERT INTO Results
+  VALUES (30, 1, 25)
+
+
+INSERT INTO Voters
+  VALUES ('Paolo Lebeau', '38 Ste-catherine', 1)
+INSERT INTO Voters
+  VALUES ('Peter Jennings', '443 Peel', 1)
+INSERT INTO Voters
+  VALUES ('Paul Maurice', '3455 Hector', 1)
+INSERT INTO Voters
+  VALUES ('Claude Barnabais', '1 desAnges', 1)
+INSERT INTO Voters
+  VALUES ('Marcel Lejuste', '22 Cremazie', 1)
+INSERT INTO Voters
+  VALUES ('Guy Guay', '234 rue Louis', 1)
+INSERT INTO Voters
+  VALUES ('Bob Lariviere', '331 St-Laurent', 1)
+INSERT INTO Voters
+  VALUES ('Clodine Desjardins', '232 rue Perdu', 1)
+INSERT INTO Voters
+  VALUES ('Ginette Lafleur', '66 rue Lemieux', 1)
+INSERT INTO Voters
+  VALUES ('Jean St-Jean', '6234 Des Laurentides', 2)
+INSERT INTO Voters
+  VALUES ('Jery Plombe', '21 St-Rose', 2)
+INSERT INTO Voters
+  VALUES ('Natasha Sucmoila', '69 du plaisir', 2)
+INSERT INTO Voters
+  VALUES ('Raymond Leblond', '32 rue deserte', 2)
+INSERT INTO Voters
+  VALUES ('Carole Lavigne', '66 St-Joseph', 2)
+INSERT INTO Voters
+  VALUES ('Ivon Embarcation', '32 de la rue', 2)
+INSERT INTO Voters
+  VALUES ('Goerges Castanza', '321 rue descendante', 2)
+INSERT INTO Voters
+  VALUES ('Homer J. Simpson', '742 Evergreen Terrasse', 2)
+INSERT INTO Voters
+  VALUES ('Philipe Levert', '345 Brossard blvd', 3)
+INSERT INTO Voters
+  VALUES ('John t. baker', '21 PopStreet', 3)
+INSERT INTO Voters
+  VALUES ('Camille DePit', '23232 Bleu', 3)
+INSERT INTO Voters
+  VALUES ('Maurice Fardoche', '22 du rang', 3)
+INSERT INTO Voters
+  VALUES ('Gino Lebeau', '67 st-greogoire', 3)
+INSERT INTO Voters
+  VALUES ('Claude Pantoufle', '321 rue Sale', 3)
+INSERT INTO Voters
+  VALUES ('Real Beland', '3222223 grande alle', 3)
+INSERT INTO Voters
+  VALUES ('Michel Legris', '1 rue de la vieillesse', 3)
+INSERT INTO Voters
+  VALUES ('Julie Desrivieres', '543 rue Laflamme', 3)
+INSERT INTO Voters
+  VALUES ('Mom Tremblay', '32 du gallet', 3)
+INSERT INTO Voters
+  VALUES ('Roger Dubois', ' 66 dla traille', 4)
+INSERT INTO Voters
+  VALUES ('Georgette Pile', '22 Mautorue', 4)
+INSERT INTO Voters
+  VALUES ('Luc Boon', '432 Quekpartdanlbois', 4)
+INSERT INTO Voters
+  VALUES ('Real Dubois', '64 dla traille', 4)
+INSERT INTO Voters
+  VALUES ('Maurice Lavale', '432 dla traille', 4)
+INSERT INTO Voters
+  VALUES ('Bonia Gina', '3 Stucru', 4)
+INSERT INTO Voters
+  VALUES ('Bob Lavigne', '4 Stuplate', 4)
+
+
+
+
